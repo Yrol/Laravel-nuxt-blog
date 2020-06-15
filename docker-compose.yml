@@ -1,0 +1,87 @@
+version: '3'
+
+networks:
+  laravel:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:5.7.29
+    container_name: mysql
+    restart: unless-stopped
+    tty: true #enable CLI/bash interface on the MySQL container
+    volumes: 
+      - ./mysql:/var/lib/mysql # this is where the dat will be persisted locally (within the "mysql" directory). 
+    ports:
+      - "3306:3306"
+    expose: #exposing the port to  be used locally (with local MySQL clients such as MySQLWorkbench & ect)
+      - "3306"
+    environment:
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - laravel
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - laravel
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    networks:
+      - laravel
+
+  npm:
+    image: node:13.7
+    container_name: npm
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html #Adding the working directory to execute the RUN commands (from either from Dockerfile or from command line )
+    #entrypoint ['npm' '--no-bin-links'] #example of chaining additional commands along with npm (can also be run with other entrypoints)
+    entrypoint: ['npm']
+
+  artisan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: artisan
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mysql
+    working_dir: /var/www/html #Adding the working directory to execute the RUN commands (from either from Dockerfile or from command line )
+    entrypoint: ['php', '/var/www/html/artisan']
+    networks:
+      - laravel
