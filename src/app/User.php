@@ -5,10 +5,11 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;//using Spatialtrait for location
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, SpatialTrait;
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -36,7 +37,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'tagline', 'about', 'username',  'location', 'available_to_hire'
+    ];
+
+    // Spatialtrait for location
+    protected $spatialFields = [
+        'location'
     ];
 
     /**

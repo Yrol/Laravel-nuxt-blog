@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//public routes
+
+//Route group for authenticated user only
+Route::group(['middleware' => ['auth:api']], function () {
+
+});
+
+//Route group for guest user only
+Route::group(['middleware' => ['guest:api']], function () {
+    Route::post('register', 'Auth\RegisterController@register'); // referring to the register method of the  register controller
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
