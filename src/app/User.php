@@ -7,7 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;//using Spatialtrait for location
 
-class User extends Authenticatable implements JWTSubject
+/*
+* JWTSubject - Tymon JWT implementation (3rd party)
+* MustVerifyEmail - Laravel's email confirmation strategy when registering a user (built-in). Using the "email_verified_at" defined below in the class and has a column in the Users table associated with it
+*/
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use Notifiable, SpatialTrait;
 
