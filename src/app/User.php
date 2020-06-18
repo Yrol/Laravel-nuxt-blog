@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+
+use App\Notifications\CustomEmailVerification;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -66,4 +68,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+    * Overriding the "sendEmailVerificationNotification" inherited from MustVerifyEmail to our own needs
+    * We are using our own Notification class - "CustomEmailVerification" created using artisan [php artisan make:CustomEmailVerification] which extends Laravel's Notification base class
+    */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new CustomEmailVerification);
+    }
 }
