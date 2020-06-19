@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     ];
 
     /*
-    * Overriding the "sendEmailVerificationNotification" inherited from MustVerifyEmail to our own needs
+    * Overriding the "sendEmailVerificationNotification" inherited from MustVerifyEmail to our own needs to send email when registering
     * We are using our own Notification class - "CustomEmailVerification" created using artisan [php artisan make:CustomEmailVerification] which extends Laravel's Notification base class
     */
     public function sendEmailVerificationNotification()

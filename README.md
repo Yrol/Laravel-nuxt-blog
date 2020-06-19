@@ -9,6 +9,12 @@
 
 ## Prerequisites
 
+* Auth controllers Laravel 7 (needs to be generated manually). Used extensively within the project to Authenticate users, send verification emails & etc.
+```sh
+composer require laravel/ui
+php artisan ui:controllers
+```
+
 ## Launching the Laravel project
 
 * Make sure the MySQL credentials are matching in `./src/.env` and `docker-compose.yml` files.
