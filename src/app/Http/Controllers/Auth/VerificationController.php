@@ -65,11 +65,28 @@ class VerificationController extends Controller
         //Verify user
         event(new Verified($user));
 
-        return response()->json(['message' => 'Email successfully verified'], 200);
+        return response()->json(['message' => 'Email successfully verified'], Response::HTTP_OK);
     }
 
+    //resend email
     public function resend(Request $request)
     {
+        $this->validate($request, ['email' => ['email', 'required']]);
 
+        $user = User::where('email', $request->email)->first();
+
+        // if user does not exist
+        if(!$user){
+            return response()->json(["errors" => ["email" => "No user could be found with this email address"]], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        //if already verified
+        if($user->hasVerifiedEmail()){
+            return response()->json(['errors' => ['message' => 'Email has already been verified']], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        return response()->json(['status' => 'verification link sent'], Response::HTTP_OK);
     }
 }
