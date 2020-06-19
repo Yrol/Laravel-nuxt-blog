@@ -9,6 +9,7 @@
 
 ## Prerequisites
 
+## Packages
 * Auth controllers Laravel 7 (needs to be generated manually). Used extensively within the project to Authenticate users, send verification emails & etc.
 ```sh
 composer require laravel/ui
