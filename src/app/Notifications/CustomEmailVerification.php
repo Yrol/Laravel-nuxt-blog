@@ -15,7 +15,7 @@ class CustomEmailVerification extends Notification
         $appUrl = config('app.client_url');
 
         /*
-        * Creating a temporary URL using "verification.verify" (using 'verify' function defined in the controller) route defined in 'api.php' and it'll only be valid for 60 mins from now (Using Carbon for date/time), the we notify the User using the user ID
+        * Creating a temporary URL using "verification.verify" route defined in 'api.php' and it'll only be valid for 60 mins from now (Using Carbon for date/time), the we notify the User using the user ID
         * this will generate a URL like: " http://localhost:8080/api/verification/register?timestamp+userID+signature"
         */
         $url = URL::temporarySignedRoute(

@@ -40,7 +40,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        //$this->middleware('auth'); // disable out of the box verification since we're doing it within "verify"
         $this->middleware('signed')->only('verify'); // signed emails with expiration
         $this->middleware('throttle:6,1')->only('verify', 'resend'); //how many times user requesting the email to be resent
     }
@@ -49,7 +49,7 @@ class VerificationController extends Controller
     {
 
         //check if the url is a valid signed url
-        if(! URL::hasValidSignature()){
+        if(! URL::hasValidSignature($request)){
             return response()->json(['errors' => ['message' => 'Invalid verification link']], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
