@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public routes
+Route::get('me', 'User\MeController@getMe');//get the authenticated user information when user token is passed.
 
 //Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function () {
