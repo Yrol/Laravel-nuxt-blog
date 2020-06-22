@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function () {
-
+    Route::post('logout', 'Auth\LoginController@logout');
 });
 
 //Route group for guest user only

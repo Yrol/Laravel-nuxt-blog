@@ -46,7 +46,7 @@ class LoginController extends Controller
             return false;
         }
 
-        //set user's token defined in JWT
+        //set user's token defined using the setToken method coming from "tymon/jwt-auth"
         $this->guard()->setToken($token);
 
         return true;
@@ -75,6 +75,10 @@ class LoginController extends Controller
         ]);
     }
 
+
+    /*
+    * Overriding the "sendFailedLoginResponse" method in "vendor/laravel/ui/auth-backend/AuthenticatesUsers.php"
+    */
     protected function sendFailedLoginResponse()
     {
         $user = $this->guard()->user();
@@ -87,5 +91,13 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             $this->username() => "Authentication failed. Invalid credential detected" // $this->username() is a base method in Laravel, which in this case returns the email
         ]);
+    }
+
+
+    //Logout logic
+    public function logout()
+    {
+        $this->guard()->logout();
+        return response()->json(['message' => 'Logged out successfully']);
     }
 }
