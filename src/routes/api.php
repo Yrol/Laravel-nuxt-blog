@@ -26,6 +26,7 @@ Route::group(['middleware' => ['guest:api']], function () {
     Route::post('register', 'Auth\RegisterController@register'); // referring to the register method of the  register controller
     Route::post('verification/verify/{user}', 'Auth\VerificationController@verify')->name('verification.verify'); //Route for sending verification emails
     Route::post('verification/resend', 'Auth\VerificationController@resend');
+    Route::post('login', 'Auth\LoginController@login');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
