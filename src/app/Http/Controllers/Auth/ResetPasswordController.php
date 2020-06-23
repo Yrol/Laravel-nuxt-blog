@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller
 {
@@ -20,20 +22,19 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    /*
+    * Overriding the sendResetResponse of ResetsPasswords trait above since by default it returns redirect path, instead we return a JSON response
+    */
+    protected function sendResetResponse(Request $request, $response)
     {
-        $this->middleware('guest');
+        return response()->json(['status' => trans($response)], Response::HTTP_OK);
+    }
+
+    /*
+    * Overriding the sendResetFailedResponse of ResetsPasswords trait above since by default it returns redirect path, instead we return a JSON response
+    */
+    protected function sendResetFailedResponse(Request $request, $response)
+    {
+        return response()->json(['email' => trans($response)], Response::HTTP_OK);
     }
 }
