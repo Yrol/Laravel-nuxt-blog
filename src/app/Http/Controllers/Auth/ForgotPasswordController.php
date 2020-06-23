@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ForgotPasswordController extends Controller
 {
@@ -20,13 +22,16 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    /*
+    * Overriding the sendResetLinkResponse defined in SendsPasswordResetEmails trait above
+    */
+    protected function sendResetLinkResponse(Request $request, $response)
     {
-        $this->middleware('guest');
+        return response()->json(['status' => trans($response)], Response::HTTP_OK);
+    }
+
+    protected function sendResetLinkFailedResponse(Request $request, $response)
+    {
+        return response()->json(['email' => trans($response)], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

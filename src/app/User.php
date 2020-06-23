@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Notifications\CustomEmailVerification;
+use App\Notifications\ResetPassword;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,5 +77,15 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new CustomEmailVerification);
+    }
+
+
+    /*
+    * Overriding the "sendPasswordResetNotification" in "vendor/laravel/framework/src/Illuminate/Contracts/Auth/CanResetPassword.php"
+    * We are using our own Notification class - "ResetPassword" created using artisan [php artisan make:ResetPassword] which extends Laravel's Notification base class
+    */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }
