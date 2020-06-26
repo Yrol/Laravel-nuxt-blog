@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class MeController extends Controller

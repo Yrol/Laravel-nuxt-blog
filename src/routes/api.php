@@ -20,10 +20,16 @@ Route::get('me', 'User\MeController@getMe');//get the authenticated user informa
 //Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout', 'Auth\LoginController@logout');
+
+    //User profile
+    Route::put('settings/profile', 'User\UserSettingController@updateProfile');
+    Route::put('settings/password', 'User\UserSettingController@updatePassword');
 });
 
 //Route group for guest user only
 Route::group(['middleware' => ['guest:api']], function () {
+
+    //login and user verification
     Route::post('register', 'Auth\RegisterController@register'); // referring to the register method of the  register controller
     Route::post('verification/verify/{user}', 'Auth\VerificationController@verify')->name('verification.verify'); //Route for sending verification emails
     Route::post('verification/resend', 'Auth\VerificationController@resend');

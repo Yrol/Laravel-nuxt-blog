@@ -25,6 +25,9 @@ class ForgotPasswordController extends Controller
     use SendsPasswordResetEmails;
 
     //override the sendResetLinkEmail with rule hasVerifiedEmail
+    /*
+    * Overriding the sendResetLinkEmail defined in SendsPasswordResetEmails trait above to make sure only the registred
+    */
     public function sendResetLinkEmail(Request $request)
     {
         $this->validateEmail($request);
@@ -49,13 +52,16 @@ class ForgotPasswordController extends Controller
     }
 
     /*
-    * Overriding the sendResetLinkResponse defined in SendsPasswordResetEmails trait above
+    * Overriding the sendResetLinkResponse defined in SendsPasswordResetEmails trait above to return our own custom JSON response
     */
     protected function sendResetLinkResponse(Request $request, $response)
     {
         return response()->json(['status' => trans($response)], Response::HTTP_OK);
     }
 
+    /*
+    * Overriding the sendResetLinkResponse defined in SendsPasswordResetEmails trait above to return our own custom JSON response
+    */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
         return response()->json(['email' => trans($response)], Response::HTTP_UNPROCESSABLE_ENTITY);
