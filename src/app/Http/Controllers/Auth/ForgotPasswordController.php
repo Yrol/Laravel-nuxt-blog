@@ -26,7 +26,7 @@ class ForgotPasswordController extends Controller
 
     //override the sendResetLinkEmail with rule hasVerifiedEmail
     /*
-    * Overriding the sendResetLinkEmail defined in SendsPasswordResetEmails trait above to make sure only the registred
+    * Overriding the sendResetLinkEmail defined in SendsPasswordResetEmails trait above to make sure only the registered
     */
     public function sendResetLinkEmail(Request $request)
     {
@@ -34,7 +34,7 @@ class ForgotPasswordController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if(!$user->hasVerifiedEmail()){
+        if (!$user->hasVerifiedEmail()) {
             return response()->json(['errors' => ['message' => 'Email has not been been verified. Please verify your email first.']], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
