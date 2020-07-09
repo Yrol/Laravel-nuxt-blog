@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Article;
+use App\Models\Category;
 use App\Notifications\CustomEmailVerification;
 use App\Notifications\ResetPassword;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -87,5 +89,23 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+
+    /*
+    * User and articles relationship
+    * A user can have many articles
+    */
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    /*
+    * Users and Categories  relationship
+    * A user can have many categories
+    */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 }
