@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,6 +51,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if($exception instanceof \Illuminate\Routing\Exceptions\InvalidSignatureException) {
+            if (request()->ajax() || request()->wantsJson()) {
+                return response()->json(['errors' => ['message' => 'Invalid Signature']], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            return response()->view('errors.invalid-signature', [], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         return parent::render($request, $exception);
     }
 }
