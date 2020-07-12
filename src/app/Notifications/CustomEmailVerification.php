@@ -23,7 +23,8 @@ class CustomEmailVerification extends Notification
         );
 
         /*
-        * We want to replace the above URL with the client side URL, hence we remove up to  "http://localhost/api/" replace as below - this will become - http://localhost:3000/verification/register?timestamp+userID+signature
+        * We want to replace the above URL with the client side URL, hence we remove up to  "http://localhost/api/" replace as below - this will become - http://localhost:3000/verification/verify?timestamp+userID+signature
+        * This temporary signed URL will be senti via email to the user
         */
         return str_replace(url('/api'), $appUrl, $url);
     }
