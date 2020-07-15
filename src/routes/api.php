@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::put('settings/password', 'User\UserSettingController@updatePassword');
 
     //Articles
-    Route::post('articles/update', 'Articles\ArticleController@update');
+    Route::apiResource('articles', 'Articles\ArticleController');
 });
 
 //Route group for guest user only
