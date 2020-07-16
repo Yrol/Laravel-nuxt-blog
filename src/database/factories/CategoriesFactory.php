@@ -11,7 +11,6 @@ $factory->define(Category::class, function (Faker $faker) {
     return [
         'title' => $word,
         'slug' => str_slug($word),
-        'description' => '',
         'user_id' => function () {
             return User::all()->random();
         }
