@@ -13,6 +13,11 @@ use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /*
     * Display all articles
     */

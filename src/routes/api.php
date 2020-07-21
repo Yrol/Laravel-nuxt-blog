@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 //public routes
 Route::get('me', 'User\MeController@getMe');//get the authenticated user information when user token is passed.
 
+//Articles
+Route::apiResource('articles', 'Articles\ArticleController');
+
 //Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout', 'Auth\LoginController@logout');
@@ -24,9 +27,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     //User profile
     Route::put('settings/profile', 'User\UserSettingController@updateProfile');
     Route::put('settings/password', 'User\UserSettingController@updatePassword');
-
-    //Articles
-    Route::apiResource('articles', 'Articles\ArticleController');
 });
 
 //Route group for guest user only
