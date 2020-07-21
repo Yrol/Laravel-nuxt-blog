@@ -22,14 +22,13 @@ class Article extends Model
     {
         parent::boot();
 
-
         //Adding the additional functionality (create a slug using the title) whenever this model gets created (during HTTP requests when creating an article & etc)
-        static::creating(function($article){
+        static::creating(function ($article) {
             $article->slug = str_slug($article->title);
         });
 
         //Adding the additional functionality (create a slug using the title) whenever this model gets updated (during HTTP requests when creating an article & etc)
-        static::updating(function($question){
+        static::updating(function ($question) {
             $question->slug = str_slug($question->title);
         });
     }
