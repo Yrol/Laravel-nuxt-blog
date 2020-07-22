@@ -20,6 +20,9 @@ Route::get('me', 'User\MeController@getMe');//get the authenticated user informa
 //Articles
 Route::apiResource('articles', 'Articles\ArticleController');
 
+//Categories
+Route::apiResource('categories', 'Articles\CategoryController');
+
 //Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout', 'Auth\LoginController@logout');

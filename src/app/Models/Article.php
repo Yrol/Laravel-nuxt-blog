@@ -28,8 +28,8 @@ class Article extends Model
         });
 
         //Adding the additional functionality (create a slug using the title) whenever this model gets updated (during HTTP requests when creating an article & etc)
-        static::updating(function ($question) {
-            $question->slug = str_slug($question->title);
+        static::updating(function ($article) {
+            $article->slug = str_slug($article->title);
         });
     }
 

@@ -38,7 +38,6 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $categoryId = $request->input('category_id');
-        //$request->request->add(['user_id', auth()->user()->id]);
         $this->validate($request, [
             'title' => ['required', new UniqueCategoryName($categoryId)],
             'category_id' => ['required', new CategoryExists($categoryId)],
