@@ -23,6 +23,6 @@ class CategoryController extends Controller
     */
     public function show($categoryId)
     {
-        return response()->json(Article::where('category_id', $categoryId)->get(), 200);
+        return response()->json(Article::where('category_id', $categoryId)->latest()->get(), 200);
     }
 }

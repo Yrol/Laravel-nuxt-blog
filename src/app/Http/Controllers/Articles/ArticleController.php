@@ -53,7 +53,9 @@ class ArticleController extends Controller
     /*
     * Updating articles
     */
-    public function update(Request $request)
+    public function update(Request $request, Article $article)
     {
+        $article->update($request->all());
+        return response()->json(new ArticleResource($article), Response::HTTP_ACCEPTED);
     }
 }
