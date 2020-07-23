@@ -55,7 +55,36 @@ class ArticleController extends Controller
     */
     public function update(Request $request, Article $article)
     {
+        $categoryId = $request->input('category_id');
+        $this->validate($request, [
+            'title' => ['required', new UniqueCategoryName($categoryId)],
+            'category_id' => ['required', new CategoryExists($categoryId)],
+            'body' => ['required'],
+            'is_live' => ['required', 'boolean'],
+            'close_to_comments' => ['required', 'boolean']
+        ]);
         $article->update($request->all());
         return response()->json(new ArticleResource($article), Response::HTTP_ACCEPTED);
+    }
+
+    /*
+    * Deleting Articles
+    */
+    public function destroy(Article $article)
+    {
+        $article_id = $article->id;
+        $user_id = $article->user_id;//user who created the Article
+        $current_user_id = auth()->user()->id;//logged in user
+
+        if ($user_id == $current_user_id) {
+            $fetched_question = Article::where('id', $article_id)->exists();
+        }
+
+        if ($fetched_question) {
+            $article->delete();
+            return response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return response(null, Response::HTTP_NOT_FOUND);
     }
 }
