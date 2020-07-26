@@ -70,7 +70,7 @@ class ArticleController extends Controller
     /*
     * Deleting Articles
     */
-    public function destroy(Article $article)
+    public function destroy(Article $article, Request $request)
     {
         $article_id = $article->id;
         $user_id = $article->user_id;//user who created the Article
@@ -82,9 +82,9 @@ class ArticleController extends Controller
 
         if ($fetched_question) {
             $article->delete();
-            return response(null, Response::HTTP_NO_CONTENT);
+            return response()->json(null, Response::HTTP_NO_CONTENT);
         }
 
-        return response(null, Response::HTTP_NOT_FOUND);
+        return response()->json(null, Response::HTTP_NOT_FOUND);
     }
 }
