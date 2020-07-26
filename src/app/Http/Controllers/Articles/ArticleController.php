@@ -55,6 +55,10 @@ class ArticleController extends Controller
     */
     public function update(Request $request, Article $article)
     {
+
+        //Using the policy defined in app/Policies/ArticlePolicy.php and referencing the 'update' method in it
+        $this->authorize('update', $article);
+
         $categoryId = $request->input('category_id');
         $this->validate($request, [
             'title' => ['required', new UniqueCategoryName($categoryId)],

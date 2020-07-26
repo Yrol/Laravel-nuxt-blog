@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -51,12 +53,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if($exception instanceof \Illuminate\Routing\Exceptions\InvalidSignatureException) {
-            if (request()->ajax() || request()->wantsJson()) {
+        if ($exception instanceof InvalidSignatureException) {
+            if ($request->expectsJson()) {
                 return response()->json(['errors' => ['message' => 'Invalid Signature']], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
+        }
 
-            return response()->view('errors.invalid-signature', [], Response::HTTP_UNPROCESSABLE_ENTITY);
+        if ($exception instanceof AuthorizationException) {
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => ['message' => 'You\'re not authorized to access this resource']], Response::HTTP_FORBIDDEN);
+            }
         }
 
         return parent::render($request, $exception);
