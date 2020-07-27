@@ -65,6 +65,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
+        return $article->user_id = $user->id;
     }
 
     /**

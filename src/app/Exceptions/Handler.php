@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,6 +65,13 @@ class Handler extends ExceptionHandler
                 return response()->json(['errors' => ['message' => 'You\'re not authorized to access this resource']], Response::HTTP_FORBIDDEN);
             }
         }
+
+        if ($exception instanceof ModelNotFoundException) {
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => ['message' => 'Resource not found']], Response::HTTP_NOT_FOUND);
+            }
+        }
+
 
         return parent::render($request, $exception);
     }

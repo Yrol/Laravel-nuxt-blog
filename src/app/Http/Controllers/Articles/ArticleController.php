@@ -74,21 +74,14 @@ class ArticleController extends Controller
     /*
     * Deleting Articles
     */
-    public function destroy(Article $article, Request $request)
+    public function destroy(Article $article)
     {
-        $article_id = $article->id;
-        $user_id = $article->user_id;//user who created the Article
-        $current_user_id = auth()->user()->id;//logged in user
+        $this->authorize('delete', $article);
 
-        if ($user_id == $current_user_id) {
-            $fetched_question = Article::where('id', $article_id)->exists();
-        }
+        $current_article =  Article::where('slug', $article->slug)->firstOrfail();
 
-        if ($fetched_question) {
-            $article->delete();
-            return response()->json(null, Response::HTTP_NO_CONTENT);
-        }
+        $current_article->delete();
 
-        return response()->json(null, Response::HTTP_NOT_FOUND);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
