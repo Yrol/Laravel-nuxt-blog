@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbd40e28fdf7b7134592a53eda979454",
+    "content-hash": "635f1e032f7afa140745fe1e45faab94",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -109,66 +109,6 @@
                 }
             ],
             "time": "2020-04-15T15:59:35+00:00"
-        },
-        {
-            "name": "cviebrock/eloquent-taggable",
-            "version": "7.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cviebrock/eloquent-taggable.git",
-                "reference": "3caedef8fd788e55763ca3956aa02bbe27126441"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cviebrock/eloquent-taggable/zipball/3caedef8fd788e55763ca3956aa02bbe27126441",
-                "reference": "3caedef8fd788e55763ca3956aa02bbe27126441",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/config": "^7.0",
-                "illuminate/database": "^7.0",
-                "illuminate/support": "^7.0",
-                "php": "^7.2.5"
-            },
-            "require-dev": {
-                "limedeck/phpunit-detailed-printer": "^5.0",
-                "orchestra/database": "^5.0",
-                "orchestra/testbench": "^5.0",
-                "phpunit/phpunit": "^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Cviebrock\\EloquentTaggable\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cviebrock\\EloquentTaggable\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Colin Viebrock",
-                    "email": "colin@viebrock.ca"
-                }
-            ],
-            "description": "Easy ability to tag your Eloquent models in Laravel 5.",
-            "homepage": "https://github.com/cviebrock/eloquent-taggable",
-            "keywords": [
-                "Taggable",
-                "eloquent",
-                "laravel",
-                "tag",
-                "tagging"
-            ],
-            "time": "2020-03-05T02:06:30+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2497,6 +2437,68 @@
                 }
             ],
             "time": "2020-03-29T20:13:32+00:00"
+        },
+        {
+            "name": "rtconner/laravel-tagging",
+            "version": "4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rtconner/laravel-tagging.git",
+                "reference": "84c18befada83935024272c238e412d49cfcc88c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rtconner/laravel-tagging/zipball/84c18befada83935024272c238e412d49cfcc88c",
+                "reference": "84c18befada83935024272c238e412d49cfcc88c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": ">= 5.0|^6.0|^7.0",
+                "illuminate/support": ">= 5.0|^6.0|^7.0",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.2",
+                "orchestra/testbench": "5.*|4.*",
+                "phpunit/phpunit": "8.*",
+                "vlucas/phpdotenv": "~4.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Conner\\Tagging\\Providers\\TaggingServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Conner\\Tagging\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Conner",
+                    "email": "rtconner+gh@smarter.bz"
+                }
+            ],
+            "description": "Use PHP traits to extend Laravel Eloquent Models to allow Tags. Models can be marked as Taggable.",
+            "homepage": "https://smartersoftware.net/packages/laravel-tagging-taggable",
+            "keywords": [
+                "Taggable",
+                "eloquent",
+                "laravel",
+                "laravel5",
+                "tag",
+                "tagged",
+                "tagging",
+                "tags"
+            ],
+            "time": "2020-04-28T03:43:01+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use App\User;
+use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    //use Taggable library
+    use Taggable;
+
     protected $fillable = [
         'user_id',
         'title',

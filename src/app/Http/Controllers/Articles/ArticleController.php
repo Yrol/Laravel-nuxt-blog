@@ -65,9 +65,18 @@ class ArticleController extends Controller
             'category_id' => ['required', new CategoryExists($categoryId)],
             'body' => ['required'],
             'is_live' => ['required', 'boolean'],
-            'close_to_comments' => ['required', 'boolean']
+            'close_to_comments' => ['required', 'boolean'],
+            'tags' => ['required']
         ]);
+
         $article->update($request->all());
+
+        /*
+        * retag is a method of Taggable library [/vendor/cviebrock/eloquent-taggable/src/Taggable.php]
+        * Taggable has been defined in Article model as a trait (i.e. use Taggable)
+        */
+        $article->retag($request->input('tags'));
+
         return response()->json(new ArticleResource($article), Response::HTTP_ACCEPTED);
     }
 
