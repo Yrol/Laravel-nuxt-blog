@@ -2,10 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Category;
+use Conner\Tagging\Taggable;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleResource extends JsonResource
 {
+    use Taggable;
     /**
      * Transform the resource into an array.
      *
@@ -22,10 +25,11 @@ class ArticleResource extends JsonResource
             'is_live' => $this->is_live,
             'close_to_comment' => $this->close_to_comment,
             'created_at' => $this->created_at,
-            'category_id' => $this->category_id,
+            'category' => Category::select('id', 'title', 'slug')->where('id', $this->category_id)->first(),
             'user_id' => $this->user_id,
             'tag_list' => [
-                'tags' => $this->tags
+                //'tags' => $this->tags //will output tags will all information
+                $this->tagSlugs()
             ]
         ];
     }
