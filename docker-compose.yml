@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 networks:
   laravel:
@@ -24,8 +24,8 @@ services:
     container_name: mysql
     restart: unless-stopped
     tty: true #enable CLI/bash interface on the MySQL container
-    volumes: 
-      - ./mysql:/var/lib/mysql # this is where the dat will be persisted locally (within the "mysql" directory). 
+    volumes:
+      - ./mysql:/var/lib/mysql # this is where the dat will be persisted locally (within the "mysql" directory).
     ports:
       - "3306:3306"
     expose: #exposing the port to  be used locally (with local MySQL clients such as MySQLWorkbench & ect)
@@ -70,7 +70,7 @@ services:
       - ./src:/var/www/html
     working_dir: /var/www/html #Adding the working directory to execute the RUN commands (from either from Dockerfile or from command line )
     #entrypoint ['npm' '--no-bin-links'] #example of chaining additional commands along with npm (can also be run with other entrypoints)
-    entrypoint: ['npm']
+    entrypoint: ["npm"]
 
   artisan:
     build:
@@ -82,6 +82,6 @@ services:
     depends_on:
       - mysql
     working_dir: /var/www/html #Adding the working directory to execute the RUN commands (from either from Dockerfile or from command line )
-    entrypoint: ['php', '/var/www/html/artisan']
+    entrypoint: ["php", "/var/www/html/artisan"]
     networks:
       - laravel

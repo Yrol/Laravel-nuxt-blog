@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,8 +16,7 @@ class LoginTest extends TestCase
      */
     public function testExample()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $user =  factory(User::class)->create();
+        $this->assertTrue(true);
     }
 }
