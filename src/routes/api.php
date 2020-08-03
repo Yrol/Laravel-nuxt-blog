@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 //public routes
 Route::get('me', 'User\MeController@getMe');//get the authenticated user information when user token is passed.
 
+//Users
+Route::get('users', 'User\UserController@index');
+
 //Articles
 Route::apiResource('articles', 'Articles\ArticleController');
 
