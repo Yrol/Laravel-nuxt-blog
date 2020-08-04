@@ -4,13 +4,26 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Repositories\Contracts\IUser;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $users;
+
+
+    /*
+    *  Injecting IUser interface to the constructor
+    */
+    public function __construct(IUser $users)
+    {
+        $this->users = $users;
+    }
+
     public function index()
     {
-        return UserResource::collection(User::latest()->paginate(5));
+        $users =  $this->users->all();
+        return UserResource::collection($users);
     }
 }

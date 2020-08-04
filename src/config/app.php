@@ -176,6 +176,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //Registering RepositoryServiceProvider which contains bindings and implementations of User and Article (IArticle and IUser)
+        App\Providers\RepositoryServiceProvider::class
+
     ],
 
     /*

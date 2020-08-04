@@ -5,16 +5,22 @@ namespace App\Http\Controllers\Articles;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
+use App\Repositories\Contracts\IArticle;
 use App\Rules\CategoryExists;
 use App\Rules\UniqueCategoryName;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
-    public function __construct()
+    protected $articles;
+
+    /*
+    *  Injecting IArticle interface to the constructor
+    */
+    public function __construct(IArticle $articles)
     {
+        $this->articles = $articles;
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -23,7 +29,8 @@ class ArticleController extends Controller
     */
     public function index()
     {
-        return ArticleResource::collection(Article::latest()->paginate(5));
+        $articles =  $this->articles->all();
+        return ArticleResource::collection($articles);
     }
     /**
      * Display a specific article by ID.
