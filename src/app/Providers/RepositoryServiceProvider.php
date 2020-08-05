@@ -11,6 +11,10 @@ use App\Repositories\Contracts\IUser;
 use App\Repositories\Eloquent\ArticleRepository;
 use App\Repositories\Eloquent\UserRepository;
 
+/*
+* Service provider for managing custom repositories.
+* This service provider has been registered in "config/app.php" as a provider.
+*/
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**

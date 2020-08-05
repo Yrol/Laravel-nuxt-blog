@@ -4,10 +4,11 @@ namespace App\Repositories\Eloquent;
 use App\Repositories\Contracts\IUser;
 use App\User;
 
-class UserRepository implements IUser
+class UserRepository extends BaseRepository implements IUser
 {
-    public function all()
+    //returning the current model
+    public function model()
     {
-        return User::latest()->paginate(5);
+        return User::class; //this returns the model namespace - App\User
     }
 }

@@ -8,10 +8,10 @@ use App\Repositories\Contracts\IArticle;
 * Implementation class for IArticle class
 */
 
-class ArticleRepository implements IArticle
+class ArticleRepository extends BaseRepository implements IArticle
 {
-    public function all()
+    public function model()
     {
-        return Article::latest()->paginate(5);
+        return Article::class;  //this returns the model namespace - App\Models\Article
     }
 }
