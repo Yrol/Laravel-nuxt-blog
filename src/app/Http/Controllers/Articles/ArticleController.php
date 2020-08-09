@@ -39,6 +39,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+        //return new ArticleResource($article); // we could also do this since we have route model binding
+        $article = $this->articles->find($article->id);
         return new ArticleResource($article);
     }
 
@@ -62,7 +64,6 @@ class ArticleController extends Controller
     */
     public function update(Request $request, Article $article)
     {
-
         //Using the policy defined in app/Policies/ArticlePolicy.php and referencing the 'update' method in it
         $this->authorize('update', $article);
 
@@ -76,7 +77,8 @@ class ArticleController extends Controller
             'tags' => ['required']
         ]);
 
-        $article->update($request->all());
+        //$article->update($request->all());
+        $updatedArticle = $this->articles->update($article->id, $request->all());
 
         /*
         * retag is a method of Taggable library [/vendor/cviebrock/eloquent-taggable/src/Taggable.php]
@@ -84,7 +86,7 @@ class ArticleController extends Controller
         */
         $article->retag($request->input('tags'));
 
-        return response()->json(new ArticleResource($article), Response::HTTP_ACCEPTED);
+        return response()->json(new ArticleResource($updatedArticle), Response::HTTP_ACCEPTED);
     }
 
     /*

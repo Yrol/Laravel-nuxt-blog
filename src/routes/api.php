@@ -21,7 +21,8 @@ Route::get('me', 'User\MeController@getMe');//get the authenticated user informa
 Route::get('users', 'User\UserController@index');
 
 //Articles
-Route::apiResource('articles', 'Articles\ArticleController');
+Route::get('articles', 'Articles\ArticleController@index');
+Route::get('articles/{article}', 'Articles\ArticleController@show'); //Using route model binding - {article} variable matches what's in Route method
 
 //Categories
 Route::apiResource('categories', 'Articles\CategoryController');
@@ -33,6 +34,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     //User profile
     Route::put('settings/profile', 'User\UserSettingController@updateProfile');
     Route::put('settings/password', 'User\UserSettingController@updatePassword');
+
+    /*
+    * Using route model binding - {article} variable matches what's in Route method- uses slugs to match resources
+    * https://youtu.be/XyyGG5qIWoQ
+    */
+    Route::put('articles/{article}', 'Articles\ArticleController@update');
 });
 
 //Route group for guest user only

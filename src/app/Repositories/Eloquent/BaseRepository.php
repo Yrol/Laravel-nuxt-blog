@@ -23,6 +23,47 @@ abstract class BaseRepository implements IBase
         return $this->model::latest()->paginate(5);
     }
 
+    public function find($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    public function findWhere($column, $value)
+    {
+        return $this->model->where($column, $value)->first();
+    }
+
+    public function findWhereFirst($column, $value)
+    {
+        return $this->model->where($column, $value)->firstOrFail();
+    }
+
+    public function paginate($perpage)
+    {
+        return $this->model->paginate($perpage);
+    }
+
+    public function create(array $data)
+    {
+    }
+
+    public function update($id, array $data)
+    {
+        //reusing the "find" method above
+        $resource = $this->model->find($id);
+        if ($resource->update($data)) {
+            return $resource;
+        }
+
+        return null;
+    }
+
+    public function delete($id, array $data)
+    {
+        $resource = $this->model->find($id);
+        return $resource->delete();
+    }
+
     protected function getModelClass()
     {
         //check if the method "model" exist in the repository classes that inherits the BaseRepository.
