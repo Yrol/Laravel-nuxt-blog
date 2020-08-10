@@ -14,5 +14,5 @@ interface IBase
     public function paginate($perpage);
     public function create(array $data);
     public function update($id, array $data);
-    public function delete($id, array $data);
+    public function delete($id);
 }

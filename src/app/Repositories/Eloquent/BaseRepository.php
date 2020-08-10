@@ -60,7 +60,7 @@ abstract class BaseRepository implements IBase
         return null;
     }
 
-    public function delete($id, array $data)
+    public function delete($id)
     {
         $resource = $this->model->find($id);
         return $resource->delete();

@@ -99,10 +99,10 @@ class ArticleController extends Controller
     {
         $this->authorize('delete', $article);
 
-        $current_article =  Article::where('slug', $article->slug)->firstOrfail();
+        if ($this->articles->delete($article->id)) {
+            return response()->json(null, Response::HTTP_NO_CONTENT);
+        }
 
-        $current_article->delete();
-
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        return response()->json(null, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
