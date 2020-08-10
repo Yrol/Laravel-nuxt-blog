@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Repositories\Contracts\IUser;
 use App\Rules\CheckSamePassword;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
@@ -11,6 +12,13 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 class UserSettingController extends Controller
 {
+    protected $users;
+
+    public function __construct(IUser $users)
+    {
+        $this->users = $users;
+    }
+
     public function updateProfile(Request $request)
     {
         //$user = auth()->user(); //NOT required since this route is protected by "auth:api" middleware. See /routes/api.php
@@ -25,15 +33,22 @@ class UserSettingController extends Controller
 
         $location = new Point($request->location['latitude'], $request->location['longitude']);
 
-        $request->user()->update([
-            'name' => $request->name,
-            'location' => $location,
-            'about' => $request->about,
-            'tagline' => $request->tagline
-        ]);
+        $user_id = $request->user()->id;
+        $resource = $this->users->update($user_id, [
+                        'name' => $request->name,
+                        'location' => $location,
+                        'about' => $request->about,
+                        'tagline' => $request->tagline
+                    ]);
 
-        return new UserResource($request->user());
+        // $request->user()->update([
+        //     'name' => $request->name,
+        //     'location' => $location,
+        //     'about' => $request->about,
+        //     'tagline' => $request->tagline
+        // ]);
 
+        return new UserResource($resource);
     }
 
     public function updatePassword(Request $request)
@@ -45,9 +60,15 @@ class UserSettingController extends Controller
             'password' => ['required', 'confirmed','min:6', new CheckSamePassword],
         ]);
 
-        $request->user()->update([
+        $user_id = $request->user()->id;
+
+        $resource = $this->users->update($user_id, [
             'password' => bcrypt($request->password)
         ]);
+
+        // $request->user()->update([
+        //     'password' => bcrypt($request->password)
+        // ]);
 
         return response()->json(['message' => 'password updated'], 200);
     }
