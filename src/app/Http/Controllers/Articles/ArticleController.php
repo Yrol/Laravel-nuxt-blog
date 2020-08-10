@@ -40,8 +40,8 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         //return new ArticleResource($article); // we could also do this since we have route model binding
-        $article = $this->articles->find($article->id);
-        return new ArticleResource($article);
+        $resource = $this->articles->find($article->id);
+        return new ArticleResource($resource);
     }
 
     public function store(Request $request)
@@ -55,8 +55,11 @@ class ArticleController extends Controller
             'close_to_comments' => ['required', 'boolean']
         ]);
 
-        $article = auth()->user()->articles()->create($request->all()); //user ID will be added automatically to the 'user_id' foreign field of articles
-        return response(new ArticleResource($article), Response::HTTP_CREATED);
+        $request->merge(['user_id' => auth()->user()->id]);
+
+        // //$article = auth()->user()->articles()->create($request->all()); //user ID will be added automatically to the 'user_id' foreign field of articles
+        $resource = $this->articles->create($request->all());
+        return response(new ArticleResource($resource), Response::HTTP_CREATED);
     }
 
     /*
@@ -78,7 +81,7 @@ class ArticleController extends Controller
         ]);
 
         //$article->update($request->all());
-        $updatedArticle = $this->articles->update($article->id, $request->all());
+        $resource = $this->articles->update($article->id, $request->all());
 
         /*
         * retag is a method of Taggable library [/vendor/cviebrock/eloquent-taggable/src/Taggable.php]
@@ -86,7 +89,7 @@ class ArticleController extends Controller
         */
         $article->retag($request->input('tags'));
 
-        return response()->json(new ArticleResource($updatedArticle), Response::HTTP_ACCEPTED);
+        return response()->json(new ArticleResource($resource), Response::HTTP_ACCEPTED);
     }
 
     /*

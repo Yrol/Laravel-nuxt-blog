@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     * https://youtu.be/XyyGG5qIWoQ
     */
     Route::put('articles/{article}', 'Articles\ArticleController@update');
+
+    Route::post('articles/', 'Articles\ArticleController@store');
 });
 
 //Route group for guest user only

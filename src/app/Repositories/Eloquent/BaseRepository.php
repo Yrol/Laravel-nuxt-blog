@@ -45,6 +45,8 @@ abstract class BaseRepository implements IBase
 
     public function create(array $data)
     {
+        $resource = $this->model->create($data);
+        return $resource;
     }
 
     public function update($id, array $data)
