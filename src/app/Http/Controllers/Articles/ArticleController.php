@@ -87,7 +87,8 @@ class ArticleController extends Controller
         * retag is a method of Taggable library [/vendor/cviebrock/eloquent-taggable/src/Taggable.php]
         * Taggable has been defined in Article model as a trait (i.e. use Taggable)
         */
-        $article->retag($request->input('tags'));
+        //$article->retag($request->input('tags'));
+        $this->articles->applyTags($article->id, $request->input('tags'));
 
         return response()->json(new ArticleResource($resource), Response::HTTP_ACCEPTED);
     }
