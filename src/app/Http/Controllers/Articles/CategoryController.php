@@ -26,12 +26,4 @@ class CategoryController extends Controller
         $category = $this->category->all();
         return CategoryResource::collection($category);
     }
-
-    /*
-    * Fetching Articles by a category ID given
-    */
-    public function show($categoryId)
-    {
-        return response()->json(Article::where('category_id', $categoryId)->latest()->get(), 200);
-    }
 }

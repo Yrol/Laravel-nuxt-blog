@@ -30,7 +30,7 @@ abstract class BaseRepository implements IBase
 
     public function findWhere($column, $value)
     {
-        return $this->model->where($column, $value)->first();
+        return $this->model->where($column, $value)->get();
     }
 
     public function findWhereFirst($column, $value)

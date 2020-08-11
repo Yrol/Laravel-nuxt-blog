@@ -39,13 +39,13 @@ class Category extends Model
         $this->hasMany(Article::class);
     }
 
-    // /**
-    //  * Get the route key for the model.
-    //  * Using the column "slug" value instead of the ID to retrieve a single Category
-    //  * @return string
-    //  */
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
+    /**
+     * Get the route key for the model.
+     * Using the column "slug" value instead of the ID to retrieve a single Category
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

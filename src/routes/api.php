@@ -23,6 +23,7 @@ Route::get('users', 'User\UserController@index');
 //Articles
 Route::get('articles', 'Articles\ArticleController@index');
 Route::get('articles/{article}', 'Articles\ArticleController@show'); //Using route model binding - {article} variable matches what's in Route method
+Route::get('articles/category/{category}', 'Articles\ArticlesByCategoryController');
 
 //Categories
 Route::apiResource('categories', 'Articles\CategoryController');
