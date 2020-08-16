@@ -8,7 +8,6 @@ use App\Models\Article;
 use App\Repositories\Contracts\IArticle;
 use App\Repositories\Eloquent\Criteria\IsLive;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
-use App\Repositories\Eloquent\Criteria\PaginateResults;
 use App\Rules\CategoryExists;
 use App\Rules\UniqueCategoryName;
 use Illuminate\Http\Request;

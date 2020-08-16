@@ -34,9 +34,14 @@ Route::get('articles', 'Articles\ArticleController@index');
 Route::get('articles/{article}', 'Articles\ArticleController@show');
 
 /**
- * Fetching all by category
+ * Fetching articles all by category
  * */
 Route::get('articles/category/{category}', 'Articles\ArticlesByCategoryController');
+
+/**
+ * Fetching articles by user
+ * */
+Route::get('articles/user/{id}', 'Articles\ArticlesByUserController');
 
 /** ******* Categories ********* */
 Route::apiResource('categories', 'Articles\CategoryController');
