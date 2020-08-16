@@ -4,12 +4,14 @@ namespace App\Repositories\Eloquent;
 
 use App\Exceptions\ModelNotDefined;
 use App\Repositories\Contracts\IBase;
+use App\Repositories\Criteria\ICriteria;
+use Illuminate\Support\Arr;
 
 /*
 * Abstract class that contains the base / common methods to all repositories
 * Since this is an abstract class, it cannot be instantiated on its own
 */
-abstract class BaseRepository implements IBase
+abstract class BaseRepository implements IBase, ICriteria
 {
     protected $model;
 
@@ -20,7 +22,7 @@ abstract class BaseRepository implements IBase
 
     public function all()
     {
-        return $this->model::latest()->paginate(5);
+        return $this->model->get();
     }
 
     public function find($id)
@@ -66,6 +68,26 @@ abstract class BaseRepository implements IBase
         return $resource->delete();
     }
 
+    public function withCriteria(...$criteria)
+    {
+        //convert to an array
+        $criteria =  Arr::flatten($criteria);
+
+        /*
+        * loop through the all criterions and apply them to the current model, then return the new version of the model.
+        */
+        foreach ($criteria as $criterion) {
+            $this->model = $criterion->apply($this->model);
+        }
+
+        //return current model
+        return $this;
+    }
+
+
+    /*
+    *  Instantiating the current model
+    */
     protected function getModelClass()
     {
         //check if the method "model" exist in the repository classes that inherits the BaseRepository.

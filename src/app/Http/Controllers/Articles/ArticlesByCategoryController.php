@@ -19,7 +19,7 @@ class ArticlesByCategoryController extends Controller
 
     protected $article;
 
-    public function __construct(IArticle $article)
+    public function __construct(IArticle $article) //using route model binding
     {
         $this->article = $article;
     }

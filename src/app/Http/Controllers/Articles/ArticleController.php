@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Repositories\Contracts\IArticle;
+use App\Repositories\Eloquent\Criteria\LatestFirst;
 use App\Rules\CategoryExists;
 use App\Rules\UniqueCategoryName;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ class ArticleController extends Controller
     */
     public function index()
     {
-        $articles =  $this->articles->all();
+        $articles =  $this->articles->withCriteria([
+            new LatestFirst()
+        ])->all();
         return ArticleResource::collection($articles);
     }
     /**
