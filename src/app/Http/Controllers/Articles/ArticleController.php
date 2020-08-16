@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Repositories\Contracts\IArticle;
+use App\Repositories\Eloquent\Criteria\IsLive;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
 use App\Repositories\Eloquent\Criteria\PaginateResults;
 use App\Rules\CategoryExists;
@@ -33,6 +34,7 @@ class ArticleController extends Controller
     {
         $articles =  $this->articles->withCriteria([
             new LatestFirst(),
+            new IsLive(),
         ])->paginate(5);
         return ArticleResource::collection($articles);
     }
