@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Models\Category;
 use App\Repositories\Contracts\IArticle;
+use App\Repositories\Eloquent\Criteria\ForCategory;
 
 class ArticlesByCategoryController extends Controller
 {
@@ -25,9 +26,9 @@ class ArticlesByCategoryController extends Controller
 
     public function __invoke(Category $category) //using route model binding for categories
     {
-        $categoryId = $category->id;
-
-        $resource = $this->article->findWhere('category_id', $categoryId);
+        $resource = $this->article->withCriteria([
+            new ForCategory($category->id)
+        ])->paginate(5);
 
         return ArticleResource::collection($resource);
     }
