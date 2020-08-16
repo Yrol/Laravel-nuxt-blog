@@ -62,7 +62,7 @@ class UserSettingController extends Controller
 
         $user_id = $request->user()->id;
 
-        $resource = $this->users->update($user_id, [
+        $this->users->update($user_id, [
             'password' => bcrypt($request->password)
         ]);
 
