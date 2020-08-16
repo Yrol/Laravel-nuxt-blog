@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Models\Category;
 use App\Repositories\Contracts\IArticle;
-use Illuminate\Http\Response;
 
 class ArticlesByCategoryController extends Controller
 {
@@ -19,12 +18,12 @@ class ArticlesByCategoryController extends Controller
 
     protected $article;
 
-    public function __construct(IArticle $article) //using route model binding
+    public function __construct(IArticle $article)
     {
         $this->article = $article;
     }
 
-    public function __invoke(Category $category)
+    public function __invoke(Category $category) //using route model binding for categories
     {
         $categoryId = $category->id;
 

@@ -7,6 +7,7 @@ use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Repositories\Contracts\IArticle;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
+use App\Repositories\Eloquent\Criteria\PaginateResults;
 use App\Rules\CategoryExists;
 use App\Rules\UniqueCategoryName;
 use Illuminate\Http\Request;
@@ -31,8 +32,8 @@ class ArticleController extends Controller
     public function index()
     {
         $articles =  $this->articles->withCriteria([
-            new LatestFirst()
-        ])->all();
+            new LatestFirst(),
+        ])->paginate(5);
         return ArticleResource::collection($articles);
     }
     /**
