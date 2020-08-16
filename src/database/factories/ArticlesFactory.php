@@ -17,8 +17,8 @@ $factory->define(Article::class, function (Faker $faker) {
             return Category::all()->random();
         },
         'tags' => '',
-        'close_to_comment' => rand(1,2),
-        'is_live' => rand(1,2),
+        'close_to_comment' => rand(0, 1),
+        'is_live' => rand(0, 1),
 
         'user_id' => function () {
             return User::all()->random();

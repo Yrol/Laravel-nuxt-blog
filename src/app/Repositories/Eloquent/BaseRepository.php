@@ -68,6 +68,9 @@ abstract class BaseRepository implements IBase, ICriteria
         return $resource->delete();
     }
 
+    /**
+     * Method that handles criterions to be applied on query builder
+     */
     public function withCriteria(...$criteria)
     {
         //convert to an array
