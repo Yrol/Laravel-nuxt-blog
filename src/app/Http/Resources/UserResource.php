@@ -24,6 +24,7 @@ class UserResource extends JsonResource
                 'created_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at
             ],
+            'articles' => ArticleResource::collection($this->whenLoaded('articles')),
             'formatted_address' => $this->formatted_address,
             'tagline' => $this->tagline,
             'about' => $this->about,

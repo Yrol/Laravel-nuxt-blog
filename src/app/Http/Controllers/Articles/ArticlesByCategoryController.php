@@ -7,6 +7,7 @@ use App\Http\Resources\ArticleResource;
 use App\Models\Category;
 use App\Repositories\Contracts\IArticle;
 use App\Repositories\Eloquent\Criteria\ForCategory;
+use App\Repositories\Eloquent\Criteria\IsLive;
 
 class ArticlesByCategoryController extends Controller
 {
@@ -27,7 +28,8 @@ class ArticlesByCategoryController extends Controller
     public function __invoke(Category $category) //using route model binding for categories
     {
         $resource = $this->article->withCriteria([
-            new ForCategory($category->id)
+            new ForCategory($category->id),
+            new IsLive(),
         ])->paginate(5);
 
         return ArticleResource::collection($resource);

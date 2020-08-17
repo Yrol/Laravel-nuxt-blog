@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquent\Criteria;
 use App\Repositories\Criteria\ICriterion;
 
 /*
-* Class consist og logic to get Articles by category
+* Class consist of logic to get Articles by category
 * Using "Solid Principles" to do perform only one job (getting latest data )
 */
 class ForCategory implements ICriterion

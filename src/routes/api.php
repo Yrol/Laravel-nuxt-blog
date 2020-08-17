@@ -15,10 +15,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public routes
-Route::get('me', 'User\MeController@getMe');//get the authenticated user information when user token is passed.
 
-//Users
+/** ******* Users ********* */
+
+/**
+ * Get currently logged in user
+ * */
+Route::get('me', 'User\MeController@getMe');
+
+/**
+ * Fetching all users
+ * */
 Route::get('users', 'User\UserController@index');
+
+/**
+ * Fetching active users (users with articles)
+ * */
+Route::get('users/active', 'User\UsersWithArticlesController');
 
 /** ******* Articles ********* */
 
