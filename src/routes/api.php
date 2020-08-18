@@ -57,7 +57,16 @@ Route::get('articles/category/{category}', 'Articles\ArticlesByCategoryControlle
 Route::get('articles/user/{id}', 'Articles\ArticlesByUserController');
 
 /** ******* Categories ********* */
-Route::apiResource('categories', 'Articles\CategoryController');
+
+/**
+ * Fetching all categories
+ * */
+//Route::apiResource('categories', 'Articles\CategoryController');
+
+/**
+ * Fetching all active categories (ones consist of articles).
+ * */
+Route::get('categories/active', 'Articles\CategoriesWithArticlesController');
 
 //Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function () {

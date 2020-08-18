@@ -4,8 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\IUser;
-use App\Repositories\Eloquent\Criteria\Eagerload;
-use Illuminate\Http\Request;
+use App\Repositories\Eloquent\Criteria\EagerloadWith;
 
 class UsersWithArticlesController extends Controller
 {
@@ -26,7 +25,7 @@ class UsersWithArticlesController extends Controller
     public function __invoke()
     {
         return $this->users->withCriteria([
-            new Eagerload(['articles'])
+            new EagerloadWith(['articles'])
         ])->paginate(5);
     }
 }

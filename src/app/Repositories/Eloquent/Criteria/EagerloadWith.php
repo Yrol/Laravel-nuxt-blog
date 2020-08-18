@@ -9,7 +9,7 @@ use App\Repositories\Criteria\ICriterion;
 * Eager loading is a way of retrieving data and related data as chunk (on one go) instead of making multiple queries to the DB
 * Using "Solid Principles" to do perform only one job
 */
-class Eagerload implements ICriterion
+class EagerloadWith implements ICriterion
 {
     protected $relationships;
 
