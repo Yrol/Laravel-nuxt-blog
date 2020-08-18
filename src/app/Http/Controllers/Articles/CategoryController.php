@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Articles;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
-use App\Models\Article;
-use App\Models\Category;
 use App\Repositories\Contracts\ICategory;
-use Illuminate\Http\Request;
+use App\Repositories\Eloquent\Criteria\EagerLoadWithCount;
+use App\Repositories\Eloquent\Criteria\LatestFirst;
 
 class CategoryController extends Controller
 {
@@ -23,7 +22,16 @@ class CategoryController extends Controller
     */
     public function index()
     {
-        $category = $this->category->all();
-        return CategoryResource::collection($category);
+        //$categories = $this->category->all(); // without any criteria
+
+        /*
+        * Fetching all categories with the article count
+        */
+        $categories = $this->category->withCriteria([
+            new LatestFirst(),
+            new EagerLoadWithCount('articles')
+        ])->all();
+
+        return CategoryResource::collection($categories);
     }
 }
