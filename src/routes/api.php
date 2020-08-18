@@ -61,7 +61,7 @@ Route::get('articles/user/{id}', 'Articles\ArticlesByUserController');
 /**
  * Fetching all categories
  * */
-//Route::apiResource('categories', 'Articles\CategoryController');
+Route::get('categories', 'Articles\CategoryController@index');
 
 /**
  * Fetching all active categories (ones consist of articles).
