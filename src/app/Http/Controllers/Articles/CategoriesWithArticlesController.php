@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Repositories\Contracts\ICategory;
+use App\Repositories\Eloquent\Criteria\EagerLoadHaving;
 use App\Repositories\Eloquent\Criteria\EagerloadWith;
 use App\Repositories\Eloquent\Criteria\EagerLoadWithCount;
 use Illuminate\Http\Request;
@@ -29,6 +30,7 @@ class CategoriesWithArticlesController extends Controller
     {
         $resource = $this->categories->withCriteria([
             new EagerLoadWithCount(['articles']),
+            new EagerLoadHaving(['articles_count', '>', 0])
         ])->all();
 
         return CategoryResource::collection($resource);
