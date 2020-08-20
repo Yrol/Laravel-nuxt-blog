@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Comment;
 use App\Models\Article;
 use App\Models\Category;
 use App\Notifications\CustomEmailVerification;
@@ -107,5 +108,14 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    /*
+    * Users and comments  relationship
+    * A user can have add many comments
+    */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

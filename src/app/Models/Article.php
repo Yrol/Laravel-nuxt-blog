@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Model\Comment;
 use App\User;
 use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +41,15 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /*
+    * Polymorphic relationship to add comments
+    * 'commentable' is the polymorphic relationship ID defined in Comment model
+    */
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->orderBy('created_at', 'asc');
     }
 
     public function category()
