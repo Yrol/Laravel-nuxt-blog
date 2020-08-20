@@ -21,4 +21,11 @@ class ArticleRepository extends BaseRepository implements IArticle
         $article = $this->find($id);
         $article->retag($tags);
     }
+
+    public function addComment($id, array $data)
+    {
+        $article = $this->find($id);
+        $comment =  $article->comments()->create($data);
+        return $comment;
+    }
 }

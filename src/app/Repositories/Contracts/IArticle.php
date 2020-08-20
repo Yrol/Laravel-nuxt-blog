@@ -8,4 +8,5 @@ namespace App\Repositories\Contracts;
 interface IArticle
 {
     public function applyTags($id, array $tags);
+    public function addComment($id, array $data);
 }

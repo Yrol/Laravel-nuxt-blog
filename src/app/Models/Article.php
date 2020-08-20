@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Model\Comment;
 use App\User;
 use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;

@@ -83,6 +83,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::put('articles/{article}', 'Articles\ArticleController@update');
     Route::post('articles/', 'Articles\ArticleController@store');
     Route::delete('articles/{article}', 'Articles\ArticleController@destroy');
+
+    /*
+    * Commenting on the article
+    */
+    Route::post('articles/{article}/comments', 'Articles\CommentsController@store');
 });
 
 //Route group for guest user only
