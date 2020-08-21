@@ -26,7 +26,7 @@ class CommentResource extends JsonResource
                 'created_at_human' => $this->updated_at->diffForHumans(),
                 'updated_at' => $this->updated_at
             ],
-            'user' => new UserResource(User::where('id', $this->user_id)->firstOrFail())
+            'user' => new UserResource($this->user)
         ];
     }
 }

@@ -32,7 +32,7 @@ class ArticleResource extends JsonResource
                 'created_at_human' => $this->updated_at->diffForHumans(),
                 'updated_at' => $this->updated_at
             ],
-            'category' => new CategoryResource($this->category),
+            'category' => new CategoryResource($this->category), //Category relationship defined in Article model
             'user' => new UserResource($this->user),
             //'comments' => CommentResource::collection($this->comments), // load all the comments
             'tag_list' => [
