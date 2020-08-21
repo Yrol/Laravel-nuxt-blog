@@ -2,13 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Category;
-use Conner\Tagging\Taggable;
+use App\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleResource extends JsonResource
+class CommentResource extends JsonResource
 {
-    use Taggable;
     /**
      * Transform the resource into an array.
      *
@@ -19,11 +17,7 @@ class ArticleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
             'body' => $this->body,
-            'slug' => $this->slug,
-            'is_live' => $this->is_live,
-            'close_to_comment' => $this->close_to_comment,
             'created_at_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at' => $this->created_at
@@ -32,13 +26,7 @@ class ArticleResource extends JsonResource
                 'created_at_human' => $this->updated_at->diffForHumans(),
                 'updated_at' => $this->updated_at
             ],
-            'category' => new CategoryResource($this->category),
-            'user' => new UserResource($this->user),
-            //'comments' => CommentResource::collection($this->comments), // load all the comments
-            'tag_list' => [
-                //'tags' => $this->tags //will output tags will all information
-                $this->tagSlugs()
-            ]
+            'user' => new UserResource(User::where('id', $this->user_id)->firstOrFail())
         ];
     }
 }
