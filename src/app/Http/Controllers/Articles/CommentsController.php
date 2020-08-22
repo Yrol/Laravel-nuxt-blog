@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Articles;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentResource;
 use App\Models\Article;
+use App\Models\Comment;
 use App\Repositories\Contracts\IArticle;
 use App\Repositories\Contracts\IComment;
 use Illuminate\Http\Request;
@@ -34,5 +35,29 @@ class CommentsController extends Controller
         ]);
 
         return response(new CommentResource($comment), Response::HTTP_CREATED);
+    }
+
+    /*
+    * Using the Update policy - only the owner can update
+    */
+    public function update(Request $request, Comment $comment)
+    {
+        $this->authorize('update', $comment);
+        $resource = $this->comments->update($comment->id, $request->all());
+        return response()->json(new CommentResource($resource), Response::HTTP_ACCEPTED);
+    }
+
+    /*
+    * Using the policy to delete the comment - only the owner can delete the comment
+    */
+    public function destroy(Comment $comment)
+    {
+        $this->authorize('delete', $comment);
+
+        if ($this->comments->delete($comment->id)) {
+            return response()->json(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return response()->json(null, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
