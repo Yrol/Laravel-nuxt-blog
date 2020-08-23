@@ -43,4 +43,13 @@ class ArticleRepository extends BaseRepository implements IArticle
             $article->like();
         }
     }
+
+    /**
+     * Method to check if user has already liked the
+     */
+    public function hasAlreadyLikedByUser($id)
+    {
+        $article = $this->find($id);
+        return $article->isLikedByUser(auth()->id());
+    }
 }
