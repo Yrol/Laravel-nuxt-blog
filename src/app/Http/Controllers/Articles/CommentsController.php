@@ -39,6 +39,7 @@ class CommentsController extends Controller
 
     /*
     * Using the Update policy - only the owner can update
+    * Using route model binding for Comments
     */
     public function update(Request $request, Comment $comment)
     {
@@ -49,6 +50,7 @@ class CommentsController extends Controller
 
     /*
     * Using the policy to delete the comment - only the owner can delete the comment
+    * Using route model binding for Comments
     */
     public function destroy(Comment $comment)
     {

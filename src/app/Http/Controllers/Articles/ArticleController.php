@@ -111,4 +111,10 @@ class ArticleController extends Controller
 
         return response()->json(null, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
+
+    public function like(Article $article)
+    {
+        $this->articles->like($article->id);
+        return response()->json(['message' => 'successful'], Response::HTTP_OK);
+    }
 }

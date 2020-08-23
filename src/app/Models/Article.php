@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Likable;
 use App\User;
 use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    //use Taggable library
-    use Taggable;
+    /*
+    * Taggable - Custom lib for tags
+    * Likable - For likes
+    */
+    use Taggable, Likable;
 
     protected $fillable = [
         'user_id',

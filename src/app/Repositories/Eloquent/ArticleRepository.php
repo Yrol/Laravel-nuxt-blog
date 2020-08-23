@@ -25,7 +25,22 @@ class ArticleRepository extends BaseRepository implements IArticle
     public function addComment($id, array $data)
     {
         $article = $this->find($id);
-        $comment =  $article->comments()->create($data);
+        $comment =  $article->comments()->create($data); //"comments() defined in Article model class"
         return $comment;
+    }
+
+    public function like($id)
+    {
+        $article = $this->find($id);
+
+        /**
+         * "isLikedByUser()" defined in Trait "Likable" used in Article model class
+         * "like" and "unlike" defined in Trait "Likable"
+         */
+        if ($article->isLikedByUser(auth()->id())) {
+            $article->unlike();
+        } else {
+            $article->like();
+        }
     }
 }

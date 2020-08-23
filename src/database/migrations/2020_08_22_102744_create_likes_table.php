@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentsTable extends Migration
+class CreateLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text('body');
-            $table->morphs('commentable');
-
+            $table->morphs('likable');
 
             //dependencies
             // "Unsigned numbers can only be positive or zero"
-            $table->bigInteger('user_id')->unsigned(); //ID of the user who created the Comment
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned();// ID of the user who liked
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');//delete like data when user get removed from the system
         });
     }
 
@@ -34,6 +32,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('likes');
     }
 }

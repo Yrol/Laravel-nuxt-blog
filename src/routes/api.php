@@ -91,6 +91,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('articles/{article}/comments', 'Articles\CommentsController@store');
     Route::delete('comments/{comment}', 'Articles\CommentsController@destroy');
     Route::put('comments/{comment}', 'Articles\CommentsController@update');
+
+    /*
+    * Likes and unlikes
+    * Using one route for both like and unlike (if user has already liked will execute the like otherwise execute the like)
+    */
+    Route::post('articles/{article}/like', 'Articles\ArticleController@like');
 });
 
 //Route group for guest user only
