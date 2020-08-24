@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Articles;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
+use App\Http\Resources\CommentResource;
 use App\Models\Article;
+use App\Models\Comment;
 use App\Repositories\Contracts\IArticle;
 use App\Repositories\Eloquent\Criteria\IsLive;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
@@ -125,5 +127,16 @@ class ArticleController extends Controller
     {
         $isLiked =  $this->articles->hasAlreadyLikedByUser($article->id);
         return response()->json(['message' => $isLiked], Response::HTTP_OK);
+    }
+
+    public function commentingArticle(Article $article, Request $request)
+    {
+        $this->validate($request, [
+            'body' => ['required']
+        ]);
+
+        $commentBody = $request->input('body');
+        $comment = $this->articles->addComment($article->id, $commentBody);
+        return response(new CommentResource($comment), Response::HTTP_CREATED);
     }
 }

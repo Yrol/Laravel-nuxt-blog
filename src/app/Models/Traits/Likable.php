@@ -71,6 +71,9 @@ trait Likable
         $this->likes()->where('user_id', auth()->id())->delete();
     }
 
+    /**
+     * Check if already liked by the user
+     */
     public function isLikedByUser($userId)
     {
         return (bool)$this->likes()->where('user_id', $userId)->count();

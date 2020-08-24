@@ -22,11 +22,12 @@ class ArticleRepository extends BaseRepository implements IArticle
         $article->retag($tags);
     }
 
-    public function addComment($id, array $data)
+    public function addComment($id, $comment)
     {
         $article = $this->find($id);
-        $comment =  $article->comments()->create($data); //"comments() defined in Article model class"
-        return $comment;
+        // $comment =  $article->comments()->create($data); //"comments() defined in Article model class"
+        // return $comment;
+        return $comment = $article->comment($comment);
     }
 
     public function like($id)
@@ -35,7 +36,7 @@ class ArticleRepository extends BaseRepository implements IArticle
 
         /**
          * "isLikedByUser()" defined in Trait "Likable" used in Article model class
-         * "like" and "unlike" defined in Trait "Likable"
+         * "like" and "unlike" defined in Trait "Likable" - which is imported into Articles model
          */
         if ($article->isLikedByUser(auth()->id())) {
             $article->unlike();
@@ -45,7 +46,7 @@ class ArticleRepository extends BaseRepository implements IArticle
     }
 
     /**
-     * Method to check if user has already liked the
+     * Method to check if user has already liked the Article
      */
     public function hasAlreadyLikedByUser($id)
     {

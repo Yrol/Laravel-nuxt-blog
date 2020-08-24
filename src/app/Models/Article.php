@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Commentable;
 use App\Models\Traits\Likable;
 use App\User;
 use Conner\Tagging\Taggable;
@@ -13,7 +14,7 @@ class Article extends Model
     * Taggable - Custom lib for tags
     * Likable - For likes
     */
-    use Taggable, Likable;
+    use Taggable, Likable, Commentable;
 
     protected $fillable = [
         'user_id',
@@ -46,14 +47,14 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
-    /*
-    * Polymorphic relationship to add comments
-    * 'commentable' is the polymorphic relationship ID defined in Comment model
-    */
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable')->orderBy('created_at', 'asc');
-    }
+    // /*
+    // * Polymorphic relationship to add comments
+    // * 'commentable' is the polymorphic relationship ID defined in Comment model
+    // */
+    // public function comments()
+    // {
+    //     return $this->morphMany(Comment::class, 'commentable')->orderBy('created_at', 'asc');
+    // }
 
     public function category()
     {
