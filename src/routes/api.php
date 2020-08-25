@@ -84,20 +84,25 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('articles/', 'Articles\ArticleController@store');
     Route::delete('articles/{article}', 'Articles\ArticleController@destroy');
 
+    /** ******* Commenting on Articles ********* */
     /*
-    * Commenting on the article
     * delete and update are using 'comments' route directly (instead of ex: 'articles') since these operation are common regardless of the model
     */
     Route::post('articles/{article}/comments', 'Articles\CommentArticleController');
     Route::delete('comments/{comment}', 'Articles\CommentsController@destroy');
     Route::put('comments/{comment}', 'Articles\CommentsController@update');
 
+    /** ******* Liking and Unliking articles ********* */
     /*
     * Likes and unlikes
     * Using one route for both like and unlike (if user has already liked will execute the like otherwise execute the like)
     */
-    Route::post('articles/{article}/like', 'Articles\ArticleController@like');
-    Route::get('articles/{article}/liked', 'Articles\HasUserLikedArticleController');//check if user already liked the article
+    Route::post('articles/{article}/like', 'Articles\LikeUnlikeArticleController');
+
+    /**
+     * Check if user has already liked the article
+     */
+    Route::get('articles/{article}/liked', 'Articles\HasUserLikedArticleController');
 });
 
 //Route group for guest user only
