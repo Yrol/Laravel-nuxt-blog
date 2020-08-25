@@ -128,15 +128,4 @@ class ArticleController extends Controller
         $isLiked =  $this->articles->hasAlreadyLikedByUser($article->id);
         return response()->json(['message' => $isLiked], Response::HTTP_OK);
     }
-
-    public function commentingArticle(Article $article, Request $request)
-    {
-        $this->validate($request, [
-            'body' => ['required']
-        ]);
-
-        $commentBody = $request->input('body');
-        $comment = $this->articles->addComment($article->id, $commentBody);
-        return response(new CommentResource($comment), Response::HTTP_CREATED);
-    }
 }

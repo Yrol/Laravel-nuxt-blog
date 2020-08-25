@@ -88,11 +88,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     * Commenting on the article
     * delete and update are using 'comments' route directly (instead of ex: 'articles') since these operation are common regardless of the model
     */
-    Route::post('articles/{article}/comments', 'Articles\CommentsController@store');
+    Route::post('articles/{article}/comments', 'Articles\CommentArticleController');
     Route::delete('comments/{comment}', 'Articles\CommentsController@destroy');
     Route::put('comments/{comment}', 'Articles\CommentsController@update');
-
-    Route::post('articles/{article}/comment', 'Articles\ArticleController@commentingArticle');
 
     /*
     * Likes and unlikes

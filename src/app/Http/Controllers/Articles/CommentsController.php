@@ -23,19 +23,19 @@ class CommentsController extends Controller
     }
 
     //adding route model binding - "Article $article"
-    public function store(Request $request, Article $article)
-    {
-        $this->validate($request, [
-            'body' => ['required']
-        ]);
+    // public function store(Request $request, Article $article)
+    // {
+    //     $this->validate($request, [
+    //         'body' => ['required']
+    //     ]);
 
-        $comment = $this->articles->addComment($article->id, [
-            'body' => $request->body,
-            'user_id' => auth()->id()
-        ]);
+    //     $comment = $this->articles->addComment($article->id, [
+    //         'body' => $request->body,
+    //         'user_id' => auth()->id()
+    //     ]);
 
-        return response(new CommentResource($comment), Response::HTTP_CREATED);
-    }
+    //     return response(new CommentResource($comment), Response::HTTP_CREATED);
+    // }
 
     /*
     * Using the Update policy - only the owner can update

@@ -19,8 +19,6 @@ class CategoriesWithArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    protected $UsersWithArticlesController;
-
     public function __construct(ICategory $categories)
     {
         $this->categories = $categories;

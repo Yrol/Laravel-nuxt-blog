@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    /*
-    * Taggable - Custom lib for tags
-    * Likable - For likes
+    /**
+     * Taggable - Custom lib for tags
+     * Likable - For likes
+     * Commentable - For comments
     */
+
     use Taggable, Likable, Commentable;
 
     protected $fillable = [
