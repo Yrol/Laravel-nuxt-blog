@@ -97,7 +97,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     * Using one route for both like and unlike (if user has already liked will execute the like otherwise execute the like)
     */
     Route::post('articles/{article}/like', 'Articles\ArticleController@like');
-    Route::get('articles/{article}/liked', 'Articles\ArticleController@hasUserLikedArticle');//check if user already liked the article
+    Route::get('articles/{article}/liked', 'Articles\HasUserLikedArticleController');//check if user already liked the article
 });
 
 //Route group for guest user only

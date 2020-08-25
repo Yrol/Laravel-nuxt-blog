@@ -119,13 +119,4 @@ class ArticleController extends Controller
         $this->articles->like($article->id);
         return response()->json(['message' => 'successful'], Response::HTTP_OK);
     }
-
-    /**
-     * Check if user has already liked the article
-     */
-    public function hasUserLikedArticle(Article $article)
-    {
-        $isLiked =  $this->articles->hasAlreadyLikedByUser($article->id);
-        return response()->json(['message' => $isLiked], Response::HTTP_OK);
-    }
 }
