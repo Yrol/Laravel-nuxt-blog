@@ -68,6 +68,13 @@ Route::get('categories', 'Articles\CategoryController@index');
  * */
 Route::get('categories/active', 'Articles\CategoriesWithArticlesController');
 
+/** ******* Search ********* */
+
+/**
+ * Search articles
+ */
+Route::get('search/articles', 'Articles\SearchArticlesController');
+
 //Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout', 'Auth\LoginController@logout');

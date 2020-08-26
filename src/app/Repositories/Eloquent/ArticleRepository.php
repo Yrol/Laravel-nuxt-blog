@@ -53,4 +53,37 @@ class ArticleRepository extends BaseRepository implements IArticle
         $article = $this->find($id);
         return $article->isLikedByUser(auth()->id());
     }
+
+    /**
+     * Method for searching articles
+     */
+    public function search($request)
+    {
+        //using the query builder
+        $query = (new $this->model)->newQuery();
+
+        $query->where('is_live', true);
+
+        //return only articles with comments
+        if ($request->has_comments) {
+            $query->has('comments'); // "comments relationship defined in Article model"
+        }
+
+        //search title by provided strings. also support chaining ex: mysite.com?q=xbox&ps3
+        if ($request->q) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%'.$request->q.'%');
+            });
+        }
+
+        //order by likes count
+        if ($request->orderBy==='likes') {
+            $query->withCount('likes')
+                ->orderByDesc('likes_count');
+        } else {
+            $query->latest(); // by latest article
+        }
+
+        return $query->get();
+    }
 }
