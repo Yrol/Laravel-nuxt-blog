@@ -23,7 +23,7 @@ class SearchArticlesController extends Controller
 
     public function __invoke(Request $request)
     {
-        $articles = $this->articles->search($request->all());
+        $articles = $this->articles->search($request);
         return ArticleResource::collection($articles);
     }
 }

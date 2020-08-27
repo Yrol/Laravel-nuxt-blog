@@ -77,7 +77,7 @@ class ArticleRepository extends BaseRepository implements IArticle
         }
 
         //order by likes count
-        if ($request->orderBy==='likes') {
+        if ($request->orderBy=='likes') {
             $query->withCount('likes')
                 ->orderByDesc('likes_count');
         } else {
