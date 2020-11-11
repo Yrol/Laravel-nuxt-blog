@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\URL;
 
 class CustomEmailVerification extends Notification
 {
-
     protected function verificationUrl($notifiable)
     {
         //client URL defined in '/config/app.php'
@@ -19,7 +18,9 @@ class CustomEmailVerification extends Notification
         * this will generate a URL like: " http://localhost:8080/api/verification/register?timestamp+userID+signature"
         */
         $url = URL::temporarySignedRoute(
-            'verification.verify', Carbon::now()->addMinute(60), ['user' => $notifiable->id]
+            'verification.verify',
+            Carbon::now()->addMinute(60),
+            ['user' => $notifiable->id]
         );
 
         /*
@@ -28,5 +29,4 @@ class CustomEmailVerification extends Notification
         */
         return str_replace(url('/api'), $appUrl, $url);
     }
-
 }
