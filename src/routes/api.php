@@ -110,6 +110,9 @@ Route::group(['middleware' => ['auth:api']], function () {
      * Check if user has already liked the article
      */
     Route::get('articles/{article}/liked', 'Articles\HasUserLikedArticleController');
+
+    /** Getting the refresh token */
+    Route::post('refresh', 'Auth\RefreshTokenController');
 });
 
 //Route group for guest user only
