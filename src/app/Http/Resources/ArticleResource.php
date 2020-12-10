@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Category;
+use Carbon\Carbon;
 use Conner\Tagging\Taggable;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,7 +28,7 @@ class ArticleResource extends JsonResource
             'likes_count' => $this->likes()->count(),
             'created_at_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
-                'created_at' => $this->created_at
+                'created_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('M d Y'),
             ],
             'updated_at_dates' => [
                 'created_at_human' => $this->updated_at->diffForHumans(),
