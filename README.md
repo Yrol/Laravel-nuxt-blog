@@ -1,5 +1,18 @@
 ## Laravel Nuxt Blog
 
+A blog application developed using Laravel.
+
+## Features
+
+- Basic CRUD operation for blog posts.
+- User management (Register, Login, Account reset and Account activation - using mailtrap)
+
+## Design Pattern
+
+- Repository
+
+## Tech stack
+
 - Nginx
 - PHP
 - MySQL
