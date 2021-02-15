@@ -23,6 +23,7 @@ class SearchArticlesController extends Controller
 
     public function __invoke(Request $request)
     {
+        //search function implemented in ArticleRepository
         $articles = $this->articles->search($request);
         return ArticleResource::collection($articles);
     }

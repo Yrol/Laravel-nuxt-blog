@@ -49,6 +49,7 @@ trait Likable
             return;
         }
 
+        //create Defined in BaseRepository
         $this->likes()->create(['user_id' => auth()->id()]);
     }
 
@@ -68,6 +69,7 @@ trait Likable
             return;
         }
 
+        //delete() Defined in BaseRepository
         $this->likes()->where('user_id', auth()->id())->delete();
     }
 

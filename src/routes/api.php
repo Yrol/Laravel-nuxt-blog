@@ -111,8 +111,11 @@ Route::group(['middleware' => ['auth:api']], function () {
      */
     Route::get('articles/{article}/liked', 'Articles\HasUserLikedArticleController');
 
-    /** Getting the refresh token */
+    /** ******* Getting the refresh token ********* */
     Route::post('refresh', 'Auth\RefreshTokenController');
+
+    /** ******* publish and unpublish an article ********* */
+    Route::post('articles/{article}/publish', 'Articles\PublishUnpublishController');
 });
 
 //Route group for guest user only

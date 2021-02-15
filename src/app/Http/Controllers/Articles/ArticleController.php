@@ -33,6 +33,7 @@ class ArticleController extends Controller
     */
     public function index()
     {
+        //paginate defined in BaseRepository
         $articles =  $this->articles->withCriteria([
             new LatestFirst(),
             new IsLive(),
@@ -47,6 +48,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         //return new ArticleResource($article); // we could also do this since we have route model binding
+        //find defined in BaseRepository
         $resource = $this->articles->find($article->id);
         return new ArticleResource($resource);
     }
@@ -65,6 +67,7 @@ class ArticleController extends Controller
         $request->merge(['user_id' => auth()->user()->id]);
 
         // //$article = auth()->user()->articles()->create($request->all()); //user ID will be added automatically to the 'user_id' foreign field of articles
+        //create defined in BaseRepository
         $resource = $this->articles->create($request->all());
         return response(new ArticleResource($resource), Response::HTTP_CREATED);
     }
@@ -88,6 +91,7 @@ class ArticleController extends Controller
         ]);
 
         //$article->update($request->all());
+        //update defined in BaseRepository
         $resource = $this->articles->update($article->id, $request->all());
 
         /*
@@ -95,6 +99,7 @@ class ArticleController extends Controller
         * Taggable has been defined in Article model as a trait (i.e. use Taggable)
         */
         //$article->retag($request->input('tags'));
+        //applyTags defined in BaseRepository
         $this->articles->applyTags($article->id, $request->input('tags'));
 
         return response()->json(new ArticleResource($resource), Response::HTTP_ACCEPTED);
@@ -107,6 +112,7 @@ class ArticleController extends Controller
     {
         $this->authorize('delete', $article);
 
+        //delete defined in BaseRepository
         if ($this->articles->delete($article->id)) {
             return response()->json(null, Response::HTTP_NO_CONTENT);
         }

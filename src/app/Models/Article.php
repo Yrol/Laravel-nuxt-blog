@@ -14,6 +14,7 @@ class Article extends Model
      * Taggable - Custom lib for tags
      * Likable - For likes
      * Commentable - For comments
+     * Publishable - For publish and unpublish
     */
 
     use Taggable, Likable, Commentable;
