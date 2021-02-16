@@ -29,7 +29,7 @@ class PublishUnpublishController extends Controller
         $this->validate($request, [
             'is_live' => ['required', 'boolean'],
         ]);
-        $resource = $this->articles->update($article->id, $request->all());
+        $resource = $this->articles->update($article->id, $request->only(['is_live']));
         return response()->json(new PublishResource($resource), Response::HTTP_ACCEPTED);
     }
 }
