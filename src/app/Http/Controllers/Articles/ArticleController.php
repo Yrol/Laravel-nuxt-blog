@@ -11,6 +11,7 @@ use App\Repositories\Contracts\IArticle;
 use App\Repositories\Eloquent\Criteria\IsLive;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
 use App\Rules\CategoryExists;
+use App\Rules\ExistingArticleUpdate;
 use App\Rules\UniqueCategoryName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -80,14 +81,13 @@ class ArticleController extends Controller
         //Using the policy defined in app/Policies/ArticlePolicy.php and referencing the 'update' method in it
         $this->authorize('update', $article);
 
-        $categoryId = $request->input('category_id');
         $this->validate($request, [
-            'title' => ['required', new UniqueCategoryName($categoryId)],
-            'category_id' => ['required', new CategoryExists($categoryId)],
+            'title' => ['required', new ExistingArticleUpdate($article->category_id, $article->id)],
+            'category_id' => ['required', new CategoryExists($article->category_id)],
             'body' => ['required'],
             'is_live' => ['required', 'boolean'],
             'close_to_comments' => ['required', 'boolean'],
-            'tags' => ['required']
+            // 'tags' => ['required']
         ]);
 
         //$article->update($request->all());

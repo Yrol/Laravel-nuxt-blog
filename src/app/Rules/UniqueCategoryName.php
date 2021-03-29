@@ -48,6 +48,6 @@ class UniqueCategoryName implements Rule
      */
     public function message()
     {
-        return 'Article name already taken for this category';
+        return 'Article name is already taken for this category.';
     }
 }
