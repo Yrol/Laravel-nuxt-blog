@@ -10,9 +10,9 @@ use App\Models\Comment;
 use App\Repositories\Contracts\IArticle;
 use App\Repositories\Eloquent\Criteria\IsLive;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
-use App\Rules\CategoryExists;
 use App\Rules\ExistingArticleUpdate;
 use App\Rules\UniqueCategoryName;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -56,10 +56,13 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        $categoryId = $request->input('category_id');
+        $category_id = $request->input('category_id');
+
         $this->validate($request, [
-            'title' => ['required', new UniqueCategoryName($categoryId)],
-            'category_id' => ['required', new CategoryExists($categoryId)],
+            'title' => ['required', new UniqueCategoryName($category_id)],
+            'category_id' => ['required', Rule::exists('categories', 'id')->where(function ($query) use ($category_id) {
+                $query->where('id', $category_id);
+            })],
             'body' => ['required'],
             'is_live' => ['required', 'boolean'],
             'close_to_comments' => ['required', 'boolean']
@@ -81,18 +84,19 @@ class ArticleController extends Controller
         //Using the policy defined in app/Policies/ArticlePolicy.php and referencing the 'update' method in it
         $this->authorize('update', $article);
 
+        $category_id = $article->category_id;
+
         $this->validate($request, [
-            'title' => ['required', new ExistingArticleUpdate($article->category_id, $article->id)],
-            'category_id' => ['required', new CategoryExists($article->category_id)],
+            'title' => ['required', new ExistingArticleUpdate($category_id, $article->id)],
             'body' => ['required'],
             'is_live' => ['required', 'boolean'],
             'close_to_comments' => ['required', 'boolean'],
-            // 'tags' => ['required']
+            'tags' => ['nullable']
         ]);
 
         //$article->update($request->all());
         //update defined in BaseRepository
-        $resource = $this->articles->update($article->id, $request->all());
+        $resource = $this->articles->update($article->id, $request->only('title', 'body', 'is_live', 'close_to_comments', 'tags'));
 
         /*
         * retag is a method of Taggable library [/vendor/cviebrock/eloquent-taggable/src/Taggable.php]
@@ -100,7 +104,11 @@ class ArticleController extends Controller
         */
         //$article->retag($request->input('tags'));
         //applyTags defined in BaseRepository
-        $this->articles->applyTags($article->id, $request->input('tags'));
+        $tags = $request->input('tags');
+
+        if ($tags) {
+            $this->articles->applyTags($article->id, $request->input('tags'));
+        }
 
         return response()->json(new ArticleResource($resource), Response::HTTP_ACCEPTED);
     }
