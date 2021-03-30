@@ -90,13 +90,13 @@ class ArticleController extends Controller
             'title' => ['required', new ExistingArticleUpdate($category_id, $article->id)],
             'body' => ['required'],
             'is_live' => ['required', 'boolean'],
-            'close_to_comments' => ['required', 'boolean'],
+            'close_to_comment' => ['required', 'boolean'],
             'tags' => ['nullable']
         ]);
 
         //$article->update($request->all());
         //update defined in BaseRepository
-        $resource = $this->articles->update($article->id, $request->only('title', 'body', 'is_live', 'close_to_comments', 'tags'));
+        $resource = $this->articles->update($article->id, $request->only('title', 'body', 'is_live', 'close_to_comment', 'tags'));
 
         /*
         * retag is a method of Taggable library [/vendor/cviebrock/eloquent-taggable/src/Taggable.php]
