@@ -68,6 +68,11 @@ Route::get('categories', 'Articles\CategoryController@index');
  * */
 Route::get('categories/active', 'Articles\CategoriesWithArticlesController');
 
+/**
+ * Fetch a category
+ */
+Route::get('categories/{category}', 'Articles\CategoryController@show');
+
 /** ******* Search ********* */
 
 /**
@@ -116,6 +121,10 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     /** ******* publish and unpublish an article ********* */
     Route::post('articles/{article}/publish', 'Articles\PublishUnpublishController');
+
+    /** ******* Categories ********* */
+    Route::post('categories/', 'Articles\CategoryController@store');
+    Route::put('categories/{category}', 'Articles\CategoryController@update');
 });
 
 //Route group for guest user only
