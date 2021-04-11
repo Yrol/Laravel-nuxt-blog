@@ -31,8 +31,8 @@ class ArticleResource extends JsonResource
                 'created_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('M d Y'),
             ],
             'updated_at_dates' => [
-                'created_at_human' => $this->updated_at->diffForHumans(),
-                'updated_at' => $this->updated_at
+                'updated_at_human' => $this->updated_at->diffForHumans(),
+                'updated_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->updated_at)->format('M d Y')
             ],
             'category' => new CategoryResource($this->category), //Category relationship defined in Article model
             'user' => new UserResource($this->user),
