@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'articles_count' => $this->articles_count,
+            'articles_count' => is_null($this->articles_count) ? 0 : $this->articles_count,
             'created_at_dates' => [
                 'created_at_human' => $this->created_at->diffForHumans(),
                 'created_at_format_1' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at),
