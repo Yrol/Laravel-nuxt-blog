@@ -52,6 +52,16 @@ Route::get('articles/{article}', 'Articles\ArticleController@show');
 Route::get('articles/category/{category}', 'Articles\ArticlesByCategoryController');
 
 /**
+ * Fetching articles count
+ * */
+Route::get('count/articles', 'Articles\ArticlesCountController');
+
+/**
+ * Fetching categories count
+ * */
+Route::get('count/categories', 'Articles\CategoriesCountController');
+
+/**
  * Fetching articles by user
  * */
 Route::get('articles/user/{id}', 'Articles\ArticlesByUserController');
