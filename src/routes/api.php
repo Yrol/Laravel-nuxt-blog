@@ -36,9 +36,14 @@ Route::get('users/active', 'User\UsersWithArticlesController');
 /** ******* Articles ********* */
 
 /**
- * Fetching all articles
+ * Fetching all the published articles
  * */
 Route::get('articles', 'Articles\ArticleController@index');
+
+/**
+ * Fetching both published and unpublished articles
+ * */
+Route::get('articles/all', 'Articles\AllArticleController');
 
 /**
  * Fetching a single article
