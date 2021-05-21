@@ -111,6 +111,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('articles/', 'Articles\ArticleController@store');
     Route::delete('articles/{article}', 'Articles\ArticleController@destroy');
 
+
+    /**
+     * Uploading images to Imagur
+     * */
+    Route::post('articles/imageupload', 'Articles\ImageUploadController');
+
     /** ******* Commenting on Articles ********* */
     /*
     * delete and update are using 'comments' route directly (instead of ex: 'articles') since these operation are common regardless of the model
