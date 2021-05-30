@@ -67,10 +67,18 @@ php artisan ui:controllers
 
 # Artisan
 
-- Artisan migrate
+To run `artisan` commands, please execute the following command once the docker is created (per nee instance).
 
 ```sh
-./artisan-migrate
+source ./aliases
+```
+
+Once the `alias` bash is executed, you should be able to run the `artisan` commands as below.
+
+```sh
+artisan make:controller SettingsController
+artisan test
+artisan make:migration create_flights_table
 ```
 
 # Bash command map
@@ -80,7 +88,6 @@ php artisan ui:controllers
 - **./composer-update** - `docker-compose run --rm composer update`
 - **./npm-install** - `docker-compose run --rm npm install`
 - **./npm-run-dev** - `docker-compose run --rm npm run dev`
-- **./artisan-migrate** - `docker-compose run --rm artisan migrate`
 
 Additionally you may include more commands to suite your needs.
 
