@@ -67,7 +67,7 @@ php artisan ui:controllers
 
 # Artisan
 
-To run `artisan` commands, please execute the following command once the docker is created (per nee instance).
+To run `artisan` commands, please execute the following bash command per new terminal.
 
 ```sh
 source ./aliases
