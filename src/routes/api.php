@@ -103,6 +103,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::put('settings/profile', 'User\UserSettingController@updateProfile');
     Route::put('settings/password', 'User\UserSettingController@updatePassword');
 
+    //Key value
+    Route::get('settings/keyvalue', 'Settings\KeyValueSettingsController@index');
+    Route::post('settings/keyvalue', 'Settings\KeyValueSettingsController@store');
+
     /*
     * Using route model binding - {article} variable matches what's in Route method- uses slugs to match resources
     * https://youtu.be/XyyGG5qIWoQ
@@ -113,7 +117,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 
     /**
-     * Uploading images to Imagur
+     * Uploading images to Imgur
      * */
     Route::post('articles/imageupload', 'Articles\ImageUploadController');
 

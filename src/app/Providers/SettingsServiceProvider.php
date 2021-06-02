@@ -26,7 +26,7 @@ class SettingsServiceProvider extends ServiceProvider
     public function boot(Setting $settings)
     {
         if (Schema::hasTable('settings')) {
-            config()->set('settings', $settings::pluck('name', 'value')->all());
+            config()->set('settings', $settings::pluck('value', 'key')->all());
         }
     }
 }

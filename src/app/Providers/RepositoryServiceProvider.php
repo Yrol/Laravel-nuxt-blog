@@ -9,11 +9,12 @@ use App\Repositories\Contracts\IArticle;
 use App\Repositories\Contracts\ICategory;
 use App\Repositories\Contracts\IUser;
 use App\Repositories\Contracts\IComment;
-
+use App\Repositories\Contracts\ISetting;
 use App\Repositories\Eloquent\ArticleRepository;
 use App\Repositories\Eloquent\CategoryRepository;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Eloquent\CommentRepository;
+use App\Repositories\Eloquent\SettingsRepository;
 
 /*
 * Service provider for managing custom repositories.
@@ -44,5 +45,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IUser::class, UserRepository::class);
         $this->app->bind(ICategory::class, CategoryRepository::class);
         $this->app->bind(IComment::class, CommentRepository::class);
+        $this->app->bind(ISetting::class, SettingsRepository::class);
     }
 }
