@@ -12,4 +12,17 @@ class Setting extends Model
         'key',
         'value',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($setting) {
+            $setting->slug = str_slug($setting->key);
+        });
+
+        static::updating(function ($setting) {
+            $setting->slug = str_slug($setting->key);
+        });
+    }
 }
