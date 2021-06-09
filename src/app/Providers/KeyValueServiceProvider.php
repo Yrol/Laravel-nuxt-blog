@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Setting;
+use App\Models\KeyValue;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
-class SettingsServiceProvider extends ServiceProvider
+class KeyValueServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -20,13 +20,13 @@ class SettingsServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap services.
-     * @param \App\Setting $setting
+     * @param \App\KeyValues $keyvalue
      * @return void
      */
-    public function boot(Setting $settings)
+    public function boot(KeyValue $keyValues)
     {
-        if (Schema::hasTable('settings')) {
-            config()->set('settings', $settings::pluck('value', 'key')->all());
+        if (Schema::hasTable('keyvalues')) {
+            config()->set('keyvalues', $keyValues::pluck('value', 'key')->all());
         }
     }
 }
