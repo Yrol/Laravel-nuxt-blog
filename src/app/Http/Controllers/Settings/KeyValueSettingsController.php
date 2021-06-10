@@ -22,7 +22,9 @@ class KeyValueSettingsController extends Controller
 
     public function index()
     {
-        $keyvalue =  $this->keyvalues->withCriteria([])->all();
+        $keyvalue =  $this->keyvalues->withCriteria([
+            new LatestFirst()
+        ])->all();
 
         return KeyValueResource::collection($keyvalue);
     }
