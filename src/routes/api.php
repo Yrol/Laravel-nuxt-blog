@@ -107,6 +107,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('settings/keyvalue', 'Settings\KeyValueSettingsController@index');
     Route::post('settings/keyvalue', 'Settings\KeyValueSettingsController@store');
     Route::delete('settings/keyvalue/{keyvalue}', 'Settings\KeyValueSettingsController@destroy');
+    Route::put('settings/keyvalue/{keyvalue}', 'Settings\KeyValueSettingsController@update');
 
     /*
     * Using route model binding - {article} variable matches what's in Route method- uses slugs to match resources

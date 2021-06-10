@@ -42,6 +42,17 @@ class KeyValueSettingsController extends Controller
 
     public function update(Request $request, KeyValue $keyvalue)
     {
+        $request->merge(['slug' => str_slug($request->key)]);
+
+        $this->validate($request, [
+            'key' => ['required','unique:keyvalues,key', 'min:4'],
+            'value' => ['required'],
+            'slug' => ['required_with:key', 'string', "unique:keyvalues,slug, {$keyvalue->slug}"] //unique category slug except the current one
+        ]);
+
+        $resource = $this->keyvalues->update($keyvalue->id, $request->only(['key', 'value']));
+
+        return response()->json(new KeyValueResource($resource), Response::HTTP_ACCEPTED);
     }
 
     public function destroy(KeyValue $keyvalue)
